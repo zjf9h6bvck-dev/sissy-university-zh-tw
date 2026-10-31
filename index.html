@@ -1,0 +1,159 @@
+
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>SU｜繁體中文介面原型</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(#f3f4fa,#080d1b);
+  --panel: light-dark(#ffffff,#151c2e);
+  --panel-2: light-dark(#e9edf6,#202b3d);
+  --text: light-dark(#202538,#eef0f8);
+  --muted: light-dark(#687086,#aeb5c6);
+  --line: light-dark(#d8ddeb,#354158);
+  --pink: #ec42ad;
+  --purple: #a64be8;
+  --blue: #347cf2;
+  --radius: 22px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); padding-bottom:92px; }
+button,input { font:inherit; }
+button { cursor:pointer; }
+.topbar {
+  position:sticky; top:0; z-index:5; display:flex; align-items:center;
+  justify-content:space-between; padding:13px 18px;
+  background:var(--panel); border-bottom:1px solid var(--line);
+}
+.logo { font-weight:900; font-size:25px; letter-spacing:-1px;
+  background:linear-gradient(110deg,var(--pink),var(--purple));
+  color:transparent; background-clip:text; }
+.iconrow { display:flex; gap:16px; color:var(--muted); font-size:20px; }
+main { max-width:760px; margin:18px auto; padding:0 14px; }
+.hero {
+  position:relative; overflow:hidden; border:1px solid var(--line);
+  border-radius:var(--radius); padding:34px 22px 28px;
+  background:radial-gradient(ellipse at 65% 0%, #7c236c55, transparent 48%),
+             radial-gradient(ellipse at 15% 100%, #672b9b55, transparent 48%),var(--panel);
+  text-align:center;
+}
+h1 { margin:0; font-size:clamp(38px,10vw,64px); line-height:.98; font-weight:950;
+  letter-spacing:-2px; background:linear-gradient(100deg,var(--pink),var(--purple));
+  color:transparent; background-clip:text; }
+.tagline { margin:17px auto 24px; max-width:510px; color:var(--muted); line-height:1.55; }
+.actions { display:grid; gap:8px; max-width:390px; margin:auto; }
+.action {
+  border:0; border-radius:13px; padding:13px 12px; color:var(--text);
+  background:transparent; font-weight:800; letter-spacing:1.3px; font-size:16px;
+}
+.action.primary { color:var(--pink); background:var(--panel-2); }
+.action:active,.nav button:active { transform:scale(.98); }
+.content { margin-top:16px; display:grid; gap:14px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:20px; }
+.card h2 { margin:0 0 8px; font-size:21px; }
+.card p { margin:0; color:var(--muted); line-height:1.65; }
+.pill { display:inline-block; color:var(--pink); font-weight:800; margin-right:10px; }
+.search { display:flex; gap:8px; margin-top:12px; }
+.search input { flex:1; min-width:0; border:1px solid var(--line); border-radius:12px;
+  padding:12px; background:var(--panel-2); color:var(--text); }
+.search button,.ok { border:0; border-radius:12px; padding:0 16px; background:var(--blue); color:white; font-weight:700; }
+.result { padding:10px 0; border-bottom:1px solid var(--line); }
+.result:last-child { border:0; }
+.nav { position:fixed; bottom:0; left:0; right:0; z-index:6; display:flex;
+  justify-content:space-around; padding:10px 5px calc(10px + env(safe-area-inset-bottom));
+  background:var(--panel-2); border-top:1px solid var(--line); }
+.nav button { border:0; background:none; color:var(--muted); display:grid; gap:3px; justify-items:center; font-size:11px; }
+.nav b { font-size:20px; color:var(--text); }
+.modal { position:fixed; inset:0; z-index:10; display:none; align-items:center; justify-content:center;
+  padding:18px; background:#0009; }
+.modal.open { display:flex; }
+.dialog { width:min(100%,620px); max-height:82dvh; overflow:auto; background:var(--panel);
+  border:1px solid var(--line); border-radius:20px; box-shadow:0 20px 70px #0005; }
+.dialog-head,.dialog-foot { position:sticky; z-index:1; display:flex; justify-content:space-between;
+  align-items:center; padding:14px 18px; background:var(--panel); }
+.dialog-head { top:0; border-bottom:1px solid var(--line); }
+.dialog-foot { bottom:0; border-top:1px solid var(--line); }
+.close { border:1px solid var(--line); border-radius:10px; background:var(--panel-2); color:var(--text); padding:6px 11px; }
+.update { margin:14px; padding:18px; border-radius:16px; background:var(--panel-2); }
+.update h3 { margin:9px 0; font-size:20px; }
+.update p { line-height:1.65; color:var(--muted); }
+@media(min-width:700px) { main { padding:0 24px; } .hero { padding:52px 36px; } .content { grid-template-columns:1fr 1fr; } }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo">SU</div>
+  <div class="iconrow" aria-label="快捷功能"><span>◉</span><span>♧</span><span>●</span><span>⚙</span></div>
+</header>
+<main>
+  <section class="hero" id="home">
+    <h1>中文介面<br>原型展示</h1>
+    <p class="tagline">以深藍底色、粉紫漸層與行動裝置優先排版，展示繁體中文網站介面的基本結構。</p>
+    <div class="actions">
+      <button class="action primary" data-go="about">›　ⓘ　關於本專案</button>
+      <button class="action" data-modal>▤　更新紀錄</button>
+      <button class="action" data-go="search">⌕　搜尋示範</button>
+      <button class="action" id="themeBtn">◐　目前外觀：跟隨系統</button>
+    </div>
+  </section>
+  <section class="content">
+    <article class="card" id="about">
+      <h2>關於本原型</h2>
+      <p>這是一個獨立的繁體中文介面示範，包含首頁、資訊卡片、更新視窗、搜尋互動與固定底部導覽。</p>
+    </article>
+    <article class="card" id="search">
+      <h2>介面搜尋</h2>
+      <p>輸入「首頁」、「更新」或「翻譯」測試本機示範搜尋。</p>
+      <div class="search"><input id="q" placeholder="輸入關鍵字…" aria-label="搜尋關鍵字"><button id="searchBtn">搜尋</button></div>
+      <div id="results" aria-live="polite"></div>
+    </article>
+    <article class="card">
+      <h2>翻譯詞庫</h2>
+      <p><span class="pill">Home</span>首頁</p><p><span class="pill">About</span>關於</p><p><span class="pill">Changelog</span>更新紀錄</p>
+    </article>
+    <article class="card">
+      <h2>下一階段</h2>
+      <p>可再加入由 JSON 管理的介面字串、語言切換，以及正式網站部署設定。</p>
+    </article>
+  </section>
+</main>
+<nav class="nav" aria-label="主要導覽">
+  <button data-go="home"><b>◉</b>首頁</button>
+  <button data-go="about"><b>♡</b>關於</button>
+  <button data-modal><b>▣</b>更新</button>
+  <button data-go="search"><b>⌕</b>搜尋</button>
+  <button id="themeNav"><b>◐</b>外觀</button>
+</nav>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <section class="dialog">
+    <header class="dialog-head"><strong id="modalTitle">更新紀錄</strong><button class="close" id="close">✕</button></header>
+    <article class="update"><span class="pill">版本 0.1</span><span style="color:var(--muted)">原型版本</span>
+      <h3>繁體中文介面框架</h3><p>完成首頁版型、響應式卡片、固定導覽列、更新紀錄視窗與基本搜尋互動。配色會跟隨裝置的淺色或深色外觀。</p>
+    </article>
+    <footer class="dialog-foot"><span style="color:var(--muted);font-size:13px">示範內容</span><button class="ok" id="ok">關閉</button></footer>
+  </section>
+</div>
+<script>
+const modal=document.getElementById('modal');
+function openModal(){modal.classList.add('open')}
+function closeModal(){modal.classList.remove('open')}
+document.querySelectorAll('[data-modal]').forEach(b=>b.addEventListener('click',openModal));
+document.getElementById('close').addEventListener('click',closeModal);
+document.getElementById('ok').addEventListener('click',closeModal);
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.go).scrollIntoView({behavior:'smooth'})));
+const terms=[['首頁','網站首頁與主要導覽'],['關於','本原型的設計說明'],['更新','更新紀錄與版本資訊'],['翻譯','繁體中文詞庫與介面文字']];
+function search(){const q=document.getElementById('q').value.trim().toLowerCase();const out=document.getElementById('results');const found=terms.filter(x=>x.join(' ').toLowerCase().includes(q));out.innerHTML=q?(found.length?found.map(x=>`<div class="result"><strong>${x[0]}</strong><br><small>${x[1]}</small></div>`).join(''):'<p>找不到符合的示範項目。</p>'):'<p>請輸入關鍵字。</p>'}
+document.getElementById('searchBtn').addEventListener('click',search);
+document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')search()});
+function themeInfo(){document.getElementById('themeBtn').textContent='◐　目前外觀：跟隨系統';}
+document.getElementById('themeBtn').addEventListener('click',themeInfo);
+document.getElementById('themeNav').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>
